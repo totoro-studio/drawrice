@@ -1,0 +1,223 @@
+/*img {*/
+/*display: none;*/
+/*}*/
+
+body {
+    overflow: hidden;
+    background-color: #11a9e2;
+}
+
+.exit {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    text-align: center;
+    z-index: 3;
+    width: 100px;
+    /*background-color: rgba(200, 230, 255, 0.8);*/
+    border-radius: 5px;
+    /*padding: 10px;*/
+}
+
+.maxsize {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    text-align: center;
+    z-index: 3;
+    width: 100px;
+    /*background-color: rgba(200, 230, 255, 0.8);*/
+    border-radius: 5px;
+    /*padding: 10px;*/
+}
+
+h1 {
+    position: absolute;
+    width: 100%;
+    top: 5%;
+    text-align: center;
+    letter-spacing: 20px;
+    font: 80px/1 "STLiti", Helvetica, Arial, sans-serif;
+    color: #fff;
+    text-shadow: 0 1px 0 #cccccc, 0 2px 0 #c9c9c9, 0 3px 0 #bbbbbb, 0 4px 0 #b9b9b9, 0 5px 0 #aaaaaa, 0 6px 1px rgba(0, 0, 0, 0.1), 0 0 5px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3), 0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.15);
+    -webkit-transition: .2s all linear;
+}
+
+#message{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top:40%;
+    font: bold 30px "Microsoft YaHei";
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #3c3c3c;
+    z-index: 100;
+}
+
+/*奖项部分*/
+div.ltypes {
+    position: absolute;
+    width: 100%;
+    top: 25%;
+    text-align: center;
+    letter-spacing: 30px;
+    font: bold 80px "Microsoft YaHei";
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #3c3c3c;
+}
+
+/*数字部分*/
+.numbox {
+    height: 450px;
+    width: 750px;
+    position: absolute;
+    left: 50%;
+    top: 250px;
+    margin-left: -370px;
+    z-index: 8;
+    overflow: hidden;
+    text-align: center;
+}
+
+.numfix0 {
+    background: url(../images/num.png) top center repeat-y;
+    background-position: 0px 0px;
+    width: 84px;
+    height: 140px;
+    float: left;
+    margin-right: 6px;
+    z-index: 100;
+}
+
+.numfix1 {
+    background: url(../images/num.png) top center repeat-y;
+    background-position: 0px -140px;
+    width: 84px;
+    height: 140px;
+    float: left;
+    margin-right: 6px;
+    z-index: 100;
+}
+
+.numfix2 {
+    background: url(../images/num.png) top center repeat-y;
+    background-position: 0px -280px;
+    width: 84px;
+    height: 140px;
+    float: left;
+    margin-right: 6px;
+    z-index: 100;
+}
+
+.num {
+    background: url(../images/num.png) top center repeat-y;
+    width: 84px;
+    height: 140px;
+    float: left;
+    margin-right: 6px;
+    z-index: 100;
+}
+
+/*中奖人*/
+#luckyguy{
+    position: absolute;
+    width: 100%;
+    bottom: 180px;
+    text-align: center;
+    font: bold 90px "Microsoft YaHei";
+    color: #ffffff;
+    letter-spacing: 30px;
+    text-shadow: 2px 2px 5px #3c3c3c;
+}
+
+/*奖品图片部分*/
+.prizeitems {
+    position: absolute;
+    top: 37%;
+    left: 12%;
+}
+
+.prizeitems #box {
+    list-style-type: none;
+    margin: 20px 10px;
+    padding: 0;
+    width: 300px;
+    height: 220px;
+    border: 2px solid #efefef;
+    position: relative;
+    float: left;
+    background: #ffffff; /* old browsers */
+    line-height: 220px;
+    font-size: 32px;
+    text-align: center;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+    -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+    -o-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.27), 0 0 60px rgba(0, 0, 0, 0.1) inset;
+    behavior: url(ie-css3.htc);
+}
+
+.prizeitems #box:before {
+    z-index: -2;
+    position: absolute;
+    background: transparent;
+    width: 90%;
+    height: 80%;
+    content: '';
+    left: 20px;
+    bottom: 8px;
+    -webkit-transform: skew(-12deg) rotate(-4deg);
+    -moz-transform: skew(-12deg) rotate(-4deg);
+    -o-transform: skew(-12deg) rotate(-4deg);
+    -ms-transform: skew(-12deg) rotate(-4deg);
+    -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    -o-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    behavior: url(ie-css3.htc);
+}
+
+.prizeitems #box:after {
+    z-index: -1;
+    position: absolute;
+    background: transparent;
+    width: 90%;
+    height: 80%;
+    content: '';
+    right: 20px;
+    bottom: 8px;
+    -webkit-transform: skew(12deg) rotate(4deg);
+    -moz-transform: skew(12deg) rotate(4deg);
+    -o-transform: skew(12deg) rotate(4deg);
+    -ms-transform: skew(12deg) rotate(4deg);
+    -webkit-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    -moz-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    -o-box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    behavior: url(ie-css3.htc);
+}
+
+.prizeitems #box img {
+    width: 290px;
+    height: 210px;
+    padding: 5px;
+}
+
+.prizeitems #notes {
+    text-align: center;
+    font:  20px "Microsoft YaHei" ;
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #3c3c3c;
+}
+
+#progress{
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 50px;
+    letter-spacing: 10px;
+    font: bold 20px "Microsoft YaHei";
+    color: #ffffff;
+    text-shadow: 2px 2px 5px #3c3c3c;
+    z-index: 100;
+}

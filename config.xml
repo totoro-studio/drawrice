@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<data>
+    <feasttitle>XX公司迎新晚会抽奖活动</feasttitle>
+    <lotterytype>
+        <type name = "特等奖">
+            <maxnumber>5</maxnumber>
+            <pic>photo1.jpg</pic>
+            <note>夏威夷七日游</note>
+        </type>
+        <type name = "一等奖">
+            <maxnumber>10</maxnumber>
+            <pic>photo2.jpg</pic>
+            <note>马尔代夫七日游</note>
+        </type>
+        <type name = "二等奖">
+            <maxnumber>20</maxnumber>
+            <pic>photo3.jpg</pic>
+            <note>新马泰七日游</note>
+        </type>
+        <type name = "三等奖">
+            <maxnumber>50</maxnumber>
+            <pic>photo1.jpg</pic>
+            <note>港奥台七日游</note>
+        </type>
+        <type name = "四等奖">
+            <maxnumber>60</maxnumber>
+            <pic>photo2.jpg</pic>
+            <note>丽江七日游</note>
+        </type>
+        <type name = "阳光普照奖">
+            <maxnumber>80</maxnumber>
+            <pic>photo3.jpg</pic>
+            <note>杭州一日游</note>
+        </type>
+    </lotterytype>
+    <lotterywindows>
+        <filepath>/lotterywindows/common/</filepath>
+    </lotterywindows>
+    <database>
+        <filename>lottery.db</filename>
+    </database>
+</data>

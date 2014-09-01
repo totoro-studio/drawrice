@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/easing.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        //网页加载完成后，进行槽的初始化
+        function ApplicationIsReady() {
+            console.log("ApplicationIsReady!");
+            mywebinterface.on_viewltypeinfo_event.connect(viewltypeinfo);
+            mywebinterface.on_viewprizeinfo_event.connect(viewprizeinfo);
+            mywebinterface.on_viewnumberwindow_event.connect(viewnumberwindow);
+            mywebinterface.on_drawlottery_event.connect(drawlottery);
+            mywebinterface.on_final_event.connect(final);
+            mywebinterface.on_message_event.connect(viewmessage);
+            mywebinterface.on_viewprogress_event.connect(viewprogress);
+        }
+
+        function viewmessage(msg){
+            document.getElementById("message").innerHTML = msg;
+        }
+
+        function viewprogress(progress){
+            document.getElementById("progress").innerHTML = progress;
+        }
+
+        //每一步等待时间间隔
+        var interval = 1500;
+        //是否执行下步的信号灯，红灯停，绿灯行
+        var signal = "green";
+
+        //next step
+        function nextstep() {
+            if (signal == "green") {
+                mywebinterface.nextstep();
+            }
+        }
+
+        //显示奖项信息
+        function viewltypeinfo(ltype, number) {
+            signal = "red";
+            document.getElementById("ltype").innerHTML = ltype;
+            document.getElementById("number").innerHTML = number + "名";
+            $(".ltypes").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        //显示奖品信息
+        function viewprizeinfo(icon, notes) {
+            signal = "red";
+            $(".ltypes").animate({left: '250px'});
+            document.getElementById("prizeicon").src = "./images/" + icon;
+            document.getElementById("notes").innerHTML = notes;
+            $(".prizeitems").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        //显示中奖者信息
+        function viewnumberwindow() {
+            signal = "red";
+
+            $("#luckyinfo").attr("background-color", "#11a9e2");
+            $(".numbox").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        function drawlottery(sid, name) {
+            signal = "red";
+
+            var isBegin = false;
+            var u = 140;    //每个数字图片的高度
+            $("#luckyguy").text("");
+            if (isBegin) return false;
+            isBegin = true;
+            $(".num").css('backgroundPositionY', 0);
+            var result = sid;
+            $('#res').text('result = ' + result);
+            var num_arr = (result + '').split('');
+            $(".num").each(function (index) {
+                var _num = $(this);
+                setTimeout(function () {
+                    _num.animate({
+                        backgroundPositionY: (u * 60) - (u * num_arr[index])
+                    }, {
+                        duration: 6000 + index * 3000,
+                        easing: "easeInOutCirc",
+                        complete: function () {
+                            if (index == 3) isBegin = false;
+                        }
+                    });
+                }, index * 300);
+            });
+
+            setTimeout(function () {
+                $("#luckyguy").text(name);
+                signal = "green";
+            }, 16300);
+        }
+
+        function final(){
+            clearwindow();
+        }
+
+        function clearwindow() {
+            location.reload();
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        function changesize(){
+            mywebinterface.changesize();
+        }
+
+        function exit() {
+            mywebinterface.exitwindow();
+        }
+    </script>
+</head>
+<body onkeypress=nextstep() ondblclick=changesize()>
+<h1>XX公司迎新晚会</h1>
+<div id="message"></div>
+<div id="interface-overlay">
+    <div class="ltypes" style="display: none">
+        <p id="ltype"></p>
+
+        <p id="number"></p>
+    </div>
+    <!--<div class="prizeitems">-->
+    <div class="prizeitems" style="display: none">
+        <p id="box">
+            <img id="prizeicon" src=""/>
+        </p>
+
+        <p id="notes"></p>
+    </div>
+</div>
+<div id="numbackgrand"></div>
+<div id="luckyinfo">
+    <div class="numbox" style="display: none">
+        <div class="numfix2"></div>
+        <div class="numfix1"></div>
+        <div class="num"></div>
+        <div class="numfix2"></div>
+        <div class="numfix0"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+    </div>
+    <div id="luckyguy"></div>
+</div>
+<div id="progress"></div>
+<div>
+    <p>
+        <button class="exit" onclick="exit()">Exit</button>
+        <button class="maxsize" onclick="changesize()">Maxsize</button>
+    </p>
+</div>
+</body>
+</html>
