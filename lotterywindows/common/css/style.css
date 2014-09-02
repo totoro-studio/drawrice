@@ -67,14 +67,27 @@ div.ltypes {
 }
 
 /*数字部分*/
+#numback{
+    position: absolute;
+    top: 218px;
+    left: 150px;
+    z-index: 8;
+}
+#nummask{
+    position: absolute;
+    top: 218px;
+    left: 150px;
+    z-index: 10;
+}
 .numbox {
     height: 450px;
     width: 750px;
     position: absolute;
-    left: 50%;
+    /*left: 50%;*/
+    left: 560px;
     top: 250px;
     margin-left: -370px;
-    z-index: 8;
+    z-index: 9;
     overflow: hidden;
     text-align: center;
 }

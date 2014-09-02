@@ -57,7 +57,7 @@ class DrawLotteryView(QObject):
         # easily confused
         # kickOffHTML = 'file:///' + join(dirname(__file__).replace('\\', '/'), "www/test02.html").replace('\\', '/')
         # kickOffHTML = 'file:///' + join(dirname(__file__).replace('\\', '/'), "www/test02.html").replace('\\', '/')
-        kickOffHTML = 'file:///' + QDir().absolutePath() + SysConfig().getlotterywindowspath() + 'index.html'
+        kickOffHTML = 'file:///' + QDir().absolutePath() + SysConfig().getlotterywindowspath() + 'test02.html'
         # kickOffHTML = 'http://get.webgl.org/'
         # kickOffHTML = 'http://www.airtightinteractive.com/demos/js/nebula/'
 

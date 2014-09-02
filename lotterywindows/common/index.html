@@ -1,141 +1,173 @@
+<!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
-    <script src="./js/tagcanvas.js" type="text/javascript"></script>
-    <script type="text/javascript">
-        window.onload = function () {
-            try {
-                TagCanvas.Start('myCanvas', 'tags', {
-                    textColour: '#ff0000',
-                    outlineColour: '#ff00ff',
-                    reverse: true,
-                    depth: 0.8,
-                    maxSpeed: 0.05,
-                    shape: "shpere"
-                });
-            } catch (e) {
-                // something went wrong, hide the canvas container
-                document.getElementById('myCanvasContainer').style.display = 'none';
+    <meta charset="utf-8">
+    <link href="./css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="./js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="./js/easing.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        //网页加载完成后，进行槽的初始化
+        function ApplicationIsReady() {
+            console.log("ApplicationIsReady!");
+            mywebinterface.on_viewltypeinfo_event.connect(viewltypeinfo);
+            mywebinterface.on_viewprizeinfo_event.connect(viewprizeinfo);
+            mywebinterface.on_viewnumberwindow_event.connect(viewnumberwindow);
+            mywebinterface.on_drawlottery_event.connect(drawlottery);
+            mywebinterface.on_final_event.connect(final);
+            mywebinterface.on_message_event.connect(viewmessage);
+            mywebinterface.on_viewprogress_event.connect(viewprogress);
+        }
+
+        function viewmessage(msg) {
+            document.getElementById("message").innerHTML = msg;
+        }
+
+        function viewprogress(progress) {
+            document.getElementById("progress").innerHTML = progress;
+        }
+
+        //每一步等待时间间隔
+        var interval = 1500;
+        //是否执行下步的信号灯，红灯停，绿灯行
+        var signal = "green";
+
+        //next step
+        function nextstep() {
+            if (signal == "green") {
+                mywebinterface.nextstep();
             }
-        };
+        }
+
+        //显示奖项信息
+        function viewltypeinfo(ltype, number) {
+            signal = "red";
+            document.getElementById("ltype").innerHTML = ltype;
+            document.getElementById("number").innerHTML = number + "名";
+            $(".ltypes").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        //显示奖品信息
+        function viewprizeinfo(icon, notes) {
+            signal = "red";
+            $(".ltypes").animate({left: '250px'});
+            document.getElementById("prizeicon").src = "./images/" + icon;
+            document.getElementById("notes").innerHTML = notes;
+            $(".prizeitems").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        //显示中奖者信息
+        function viewnumberwindow() {
+            signal = "red";
+
+            $("#numback").append("<img src=./images/num_back.png>");
+            $("#nummask").append("<img src=./images/num_mask.png>");
+            $(".numbox").fadeIn(2000);
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        function drawlottery(sid, name) {
+            signal = "red";
+
+            var isBegin = false;
+            var u = 140;    //每个数字图片的高度
+            $("#luckyguy").text("");
+            if (isBegin) return false;
+            isBegin = true;
+            $(".num").css('backgroundPositionY', 0);
+            var result = sid;
+            $('#res').text('result = ' + result);
+            var num_arr = (result + '').split('');
+            $(".num").each(function (index) {
+                var _num = $(this);
+                setTimeout(function () {
+                    _num.animate({
+                        backgroundPositionY: (u * 60) - (u * num_arr[index])
+                    }, {
+                        duration: 6000 + index * 3000,
+                        easing: "easeInOutCirc",
+                        complete: function () {
+                            if (index == 3) isBegin = false;
+                        }
+                    });
+                }, index * 300);
+            });
+
+            setTimeout(function () {
+                $("#luckyguy").text(name);
+                signal = "green";
+            }, 16300);
+        }
+
+        function final() {
+            clearwindow();
+        }
+
+        function clearwindow() {
+            location.reload();
+            setTimeout(function () {
+                signal = "green";
+            }, interval);
+        }
+
+        function changesize() {
+            mywebinterface.changesize();
+        }
+
+        function exit() {
+            mywebinterface.exitwindow();
+        }
     </script>
 </head>
-<body background="./images/world-map.png" style="background: cover; background-repeat: no-repeat; background-size: contain ">
-    <div id="myCanvasContainer">
-      <canvas width="1000" height="750" id="myCanvas">
-        <p>Anything in here will be replaced on browsers that support the canvas element</p>
-      </canvas>
+<body onkeypress=nextstep() ondblclick=changesize()>
+<h1>XX公司迎新晚会</h1>
+
+<div id="message"></div>
+<div id="interface-overlay">
+    <div class="ltypes" style="display: none">
+        <p id="ltype"></p>
+
+        <p id="number"></p>
     </div>
-    <div id="tags">
-        <ul>
-            <li><a href="">张小平</a></li>
-            <li><a href="">邹市明</a></li>
-            <li><a href="">马琳</a></li>
-            <li><a href="">孟关良</a></li>
-            <li><a href="">杨文军</a></li>
-            <li><a href="">静水</a></li>
-            <li><a href="">张怡宁</a></li>
-            <li><a href="">陈若琳</a></li>
-            <li><a href="">吴静钰</a></li>
-            <li><a href="">殷剑</a></li>
-            <li><a href="">何冲</a></li>
-            <li><a href="">陆春龙</a></li>
-            <li><a href="">邹凯</a></li>
-            <li><a href="">李小鹏</a></li>
-            <li><a href="">何雯娜</a></li>
-            <li><a href="">何可欣</a></li>
-            <li><a href="">陈一冰</a></li>
-            <li><a href="">郭晶晶</a></li>
-            <li><a  href="">林丹</a></li>
-            <li><a href="">肖钦</a></li>
-            <li><a href="">邹凯</a></li>
-            <li><a href="">王娇</a></li>
-            <li><a href="">邱健</a></li>
-            <li><a href="">张宁</a></li>
-            <li><a href="">张蓉芳</a></li>
-            <li><a href="">郎平</a></li>
-            <li><a href="">朱玲</a></li>
-            <li><a href="">杨锡兰</a></li>
-            <li><a href="">周晓兰</a></li>
-            <li><a href="">梁艳</a></li>
-            <li><a href="">姜英</a></li>
-            <li><a href="">侯玉珠</a></li>
-            <li><a href="">苏惠娟</a></li>
-            <li><a href="">李延军</a></li>
-            <li><a href="">杨晓君</a></li>
-            <li><a href="">郑美珠</a></li>
-            <li><a href="">杜婧</a></li>
-            <li><a href="">于洋</a></li>
-            <li><a href="">陆永</a></li>
-            <li><a href="">佟文</a></li>
-            <li><a href="">曹磊</a></li>
-            <li><a href="">杨秀丽</a></li>
-            <li><a href="">张娟娟</a></li>
-            <li><a href="">杨威</a></li>
-            <li><a href="">杜丽</a></li>
-            <li><a href="">刘子歌</a></li>
-            <li><a href="">刘春红</a></li>
-            <li><a href="">王峰</a></li>
-            <li><a href="">秦凯</a></li>
-            <li><a href="">陈颖</a></li>
-            <li><a href="">廖辉</a></li>
-            <li><a href="">仲满</a></li>
-            <li><a href="">王鑫</a></li>
-            <li><a href="">张小平</a></li>
-            <li><a href="">邹市明</a></li>
-            <li><a href="">马琳</a></li>
-            <li><a href="">孟关良</a></li>
-            <li><a href="">杨文军</a></li>
-            <li><a href="">静水</a></li>
-            <li><a href="">张怡宁</a></li>
-            <li><a href="">陈若琳</a></li>
-            <li><a href="">吴静钰</a></li>
-            <li><a href="">殷剑</a></li>
-            <li><a href="">何冲</a></li>
-            <li><a href="">陆春龙</a></li>
-            <li><a href="">邹凯</a></li>
-            <li><a href="">李小鹏</a></li>
-            <li><a href="">何雯娜</a></li>
-            <li><a href="">何可欣</a></li>
-            <li><a href="">陈一冰</a></li>
-            <li><a href="">郭晶晶</a></li>
-            <li><a href="">林丹</a></li>
-            <li><a href="">肖钦</a></li>
-            <li><a href="">邹凯</a></li>
-            <li><a href="">王娇</a></li>
-            <li><a href="">邱健</a></li>
-            <li><a href="">张宁</a></li>
-            <li><a href="">张蓉芳</a></li>
-            <li><a href="">郎平</a></li>
-            <li><a href="">朱玲</a></li>
-            <li><a href="">杨锡兰</a></li>
-            <li><a href="">周晓兰</a></li>
-            <li><a href="">梁艳</a></li>
-            <li><a href="">姜英</a></li>
-            <li><a href="">侯玉珠</a></li>
-            <li><a href="">苏惠娟</a></li>
-            <li><a href="">李延军</a></li>
-            <li><a href="">杨晓君</a></li>
-            <li><a href="">郑美珠</a></li>
-            <li><a href="">杜婧</a></li>
-            <li><a href="">于洋</a></li>
-            <li><a href="">陆永</a></li>
-            <li><a href="">佟文</a></li>
-            <li><a href="">曹磊</a></li>
-            <li><a href="">杨秀丽</a></li>
-            <li><a href="">张娟娟</a></li>
-            <li><a href="">杨威</a></li>
-            <li><a href="">杜丽</a></li>
-            <li><a href="">刘子歌</a></li>
-            <li><a href="">刘春红</a></li>
-            <li><a href="">王峰</a></li>
-            <li><a href="">秦凯</a></li>
-            <li><a href="">陈颖</a></li>
-            <li><a href="">廖辉</a></li>
-            <li><a href="">仲满</a></li>
-            <li><a href="">王鑫</a></li>
-        </ul>
+    <!--<div class="prizeitems">-->
+    <div class="prizeitems" style="display: none">
+        <p id="box">
+            <img id="prizeicon" src=""/>
+        </p>
+
+        <p id="notes"></p>
     </div>
+</div>
+<div id="luckyinfo">
+<div id="numback"></div>
+<div id="nummask"></div>
+    <div class="numbox" style="display: none">
+        <div class="numfix2"></div>
+        <div class="numfix1"></div>
+        <div class="num"></div>
+        <div class="numfix2"></div>
+        <div class="numfix0"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+    </div>
+    <div id="luckyguy"></div>
+</div>
+<div id="progress"></div>
+<div>
+    <p>
+        <button class="exit" onclick="exit()">Exit</button>
+        <button class="maxsize" onclick="changesize()">Maxsize</button>
+    </p>
+</div>
 </body>
 </html>
